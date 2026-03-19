@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils";
 
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/global/Container";
+import Providers from "./providers";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Next Storefront",
@@ -19,10 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={cn("font-sans", geist.variable)}>
+    <html
+      lang='en'
+      className={cn("font-sans", geist.variable)}
+      suppressHydrationWarning
+    >
       <body>
-        <Navbar />
-        <Container className='py-20'>{children}</Container>
+        <Providers>
+          <Navbar />
+          <Container className='py-20'>{children}</Container>
+        </Providers>
       </body>
     </html>
   );
