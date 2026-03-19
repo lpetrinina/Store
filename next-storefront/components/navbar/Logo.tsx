@@ -7,7 +7,7 @@ import { VscCode } from "react-icons/vsc";
 
 function Logo() {
   return (
-    <Button asChild size='icon-lg' variant='default'>
+    <Button asChild size='icon-lg'>
       <Link href='/'>
         <BiHomeHeart />
         {/* <HiHome /> */}
