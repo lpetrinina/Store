@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
 import "./globals.css";
+import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import Navbar from "@/components/navbar/Navbar";
+import Container from "@/components/global/Container";
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Next Storefront",
@@ -19,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={cn("font-sans", geist.variable)}>
-      <body className={inter.className}>{children}</body>
+      <body>
+        <Navbar />
+        <Container className='py-20'>{children}</Container>
+      </body>
     </html>
   );
 }
