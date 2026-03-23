@@ -11,9 +11,9 @@ function Hero() {
           We are changing the way people shop
         </h1>
         <p className='mt-4 sm:mt-8 max-w-xl text-base sm:text-lg leading-8 text-muted-foreground'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-          vel sequi fuga quasi quisquam ea recusandae et voluptates placeat
-          eligendi.
+          Discover modern Scandinavian furniture designed for simplicity,
+          comfort, and timeless elegance. Clean lines, natural materials, and
+          thoughtful craftsmanship to create a calm and functional living space.
         </p>
 
         <Button asChild size='lg' className='mt-6 sm:mt-10 px-4'>
