@@ -7,7 +7,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/global/Container";
 import Providers from "./providers";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Next Storefront",
@@ -28,7 +28,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Navbar />
-          <Container className='py-20'>{children}</Container>
+          <Container className='py-12 sm:py-20'>{children}</Container>
         </Providers>
       </body>
     </html>

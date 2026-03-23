@@ -1,13 +1,12 @@
-import { Button } from "@/components/ui/button";
+import Hero from "@/components/home/Hero";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 
 function HomePage() {
   return (
-    <div>
-      <div>Home Page</div>
-      <Button variant='outline' size='default' className='capitalize m-8'>
-        click me
-      </Button>
-    </div>
+    <>
+      <Hero />
+      <FeaturedProducts />
+    </>
   );
 }
 
