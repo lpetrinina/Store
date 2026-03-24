@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
+import { Mulish } from "next/font/google";
 import "./globals.css";
-import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/global/Container";
 import Providers from "./providers";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const mulish = Mulish({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Storefront",
+  title: {
+    template: "%s / Nordik Home",
+    default: "Nordik Home",
+  },
   description: "A nifty store built with Next.js",
 };
 
@@ -22,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={cn("font-sans", geist.variable)}
+      className={cn("font-sans", mulish.className)}
       suppressHydrationWarning
     >
       <body>
