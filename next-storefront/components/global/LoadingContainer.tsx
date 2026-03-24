@@ -1,11 +1,9 @@
-import SectionTitle from "./SectionTitle";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 
-function LoadingContainer() {
+function LoadingContainer({ className }: { className?: string }) {
   return (
-    <section className='pt-24'>
-      <SectionTitle text='featured products' />
+    <section className={className}>
       <div className='pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
         <LoadingProduct />
         <LoadingProduct />

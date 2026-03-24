@@ -9,7 +9,11 @@ function HomePage() {
     <>
       <Hero />
 
-      <Suspense fallback={<LoadingContainer />}>
+      <Suspense
+        fallback={
+          <LoadingContainer title='featured products' className='pt-[165px]' />
+        }
+      >
         <FeaturedProducts />
       </Suspense>
     </>
