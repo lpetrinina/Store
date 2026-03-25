@@ -24,7 +24,7 @@ function ProductsList({ products }: { products: Product[] }) {
           <article key={productId} className='group relative'>
             <Link href={`/product/${productId}`}>
               <Card className='group-hover:shadow-xl transition-shadow duration-500'>
-                <CardContent className='px-4 flex ite gap-6'>
+                <CardContent className='px-4 flex gap-6'>
                   <div className='relative h-30 sm:h-44 aspect-square sm:aspect-video overflow-hidden rounded'>
                     <Image
                       src={image}
