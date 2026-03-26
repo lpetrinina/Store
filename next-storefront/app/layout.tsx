@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -29,10 +30,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <Providers>
-          <Navbar />
-          <Container className='py-12 sm:py-20'>{children}</Container>
-        </Providers>
+        <ClerkProvider>
+          <Providers>
+            <Navbar />
+            <Container className='py-12 sm:py-20'>{children}</Container>
+          </Providers>
+        </ClerkProvider>
       </body>
     </html>
   );
