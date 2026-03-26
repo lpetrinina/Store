@@ -22,7 +22,7 @@ function ProductsList({ products }: { products: Product[] }) {
 
         return (
           <article key={productId} className='group relative'>
-            <Link href={`/product/${productId}`}>
+            <Link href={`/products/${productId}`}>
               <Card className='group-hover:shadow-xl transition-shadow duration-500'>
                 <CardContent className='px-4 flex gap-6'>
                   <div className='relative h-30 sm:h-44 aspect-square sm:aspect-video overflow-hidden rounded'>
