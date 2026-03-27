@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { LuAlignLeft } from "react-icons/lu";
+import { Show, SignInButton, SignUpButton } from "@clerk/nextjs";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,11 +9,10 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { LuAlignLeft } from "react-icons/lu";
-import Link from "next/link";
-
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
+import SignOutLink from "./SignOutLink";
+import UserIcon from "./UserIcon";
 
 function LinksDropdown() {
   return (
@@ -17,19 +20,40 @@ function LinksDropdown() {
       <DropdownMenuTrigger asChild>
         <Button variant='outline' size='lg' className='flex gap-4 max-w-25'>
           <LuAlignLeft className='w-6 h-6' />
+          <UserIcon />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className='w-40' align='start' sideOffset={10}>
-        {links.map((link) => {
-          return (
-            <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className='capitalize w-full'>
-                {link.label}
-              </Link>
-            </DropdownMenuItem>
-          );
-        })}
+        <Show when='signed-in'>
+          {links.map((link) => {
+            return (
+              <DropdownMenuItem key={link.href}>
+                <Link href={link.href} className='capitalize w-full'>
+                  {link.label}
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem>
+            <SignOutLink />
+          </DropdownMenuItem>
+        </Show>
+
+        <Show when='signed-out'>
+          <DropdownMenuItem>
+            <SignInButton>Login</SignInButton>
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem>
+            <SignUpButton>Register</SignUpButton>
+          </DropdownMenuItem>
+        </Show>
       </DropdownMenuContent>
     </DropdownMenu>
   );
