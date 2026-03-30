@@ -7,7 +7,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       <h2 className='pl-4 text-xl sm:text-2xl'>Dashboard</h2>
       <Separator className='mt-2' />
 
-      <section className='flex flex-col sm:flex-row gap-4 mt-12'>
+      <section className='flex flex-col sm:flex-row gap-6 mt-12'>
         <Sidebar />
 
         <div className='flex-1 px-4'>{children}</div>
