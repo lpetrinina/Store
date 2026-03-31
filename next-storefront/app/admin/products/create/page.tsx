@@ -1,12 +1,12 @@
-import Form from "next/form";
-import { Button } from "@/components/ui/button";
-import FormInput from "@/components/form/FormInput";
+import { createProductAction } from "@/utils/actions";
 
-async function createProductAction(formData: FormData) {
-  "use server";
-  const name = formData.get("name") as string;
-  console.log(name);
-}
+import FormInput from "@/components/form/FormInput";
+import FormContainer from "@/components/form/FormContainer";
+import PriceInput from "@/components/form/PriceInput";
+import ImageInput from "@/components/form/ImageInput";
+import TextareaInput from "@/components/form/TextareaInput";
+import CheckboxInput from "@/components/form/CheckboxInput";
+import { SubmitButton } from "@/components/form/Buttons";
 
 function CreateProductPage() {
   return (
@@ -16,18 +16,41 @@ function CreateProductPage() {
       </h1>
 
       <div className='border p-8 rounded-md'>
-        <Form action={createProductAction}>
-          <FormInput
-            type='text'
-            name='name'
-            label='product name'
-            defaultValue='Vase'
+        <FormContainer
+          action={createProductAction}
+          successMessage='The product is successfully created!'
+        >
+          <div className='grid md:grid-cols-2 gap-4 mb-4'>
+            <FormInput
+              type='text'
+              name='name'
+              label='product name'
+              defaultValue='vase'
+            />
+
+            <FormInput
+              type='text'
+              name='company'
+              label='company'
+              defaultValue='modern world'
+            />
+
+            <PriceInput defaultValue={129} />
+            <ImageInput />
+          </div>
+
+          <TextareaInput
+            name='description'
+            labelText='product description'
+            defaultValue='Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone'
           />
 
-          <Button type='submit' size='lg'>
-            Submit
-          </Button>
-        </Form>
+          <div className='mt-6'>
+            <CheckboxInput name='featured' label='featured' />
+          </div>
+
+          <SubmitButton text='create product' className='mt-8' />
+        </FormContainer>
       </div>
     </section>
   );
