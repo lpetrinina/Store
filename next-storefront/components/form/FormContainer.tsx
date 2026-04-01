@@ -6,14 +6,12 @@ import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { actionFunction } from "@/utils/types";
 
-const initialState = { error: null, success: false };
+const initialState = { error: null, success: null };
 
 function FormContainer({
-  successMessage,
   action,
   children,
 }: {
-  successMessage: string;
   action: actionFunction;
   children: React.ReactNode;
 }) {
@@ -25,7 +23,7 @@ function FormContainer({
     }
 
     if (state.success) {
-      toast.success(successMessage);
+      toast.success(state.success);
     }
   }, [state]);
 

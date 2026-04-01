@@ -16,10 +16,7 @@ function CreateProductPage() {
       </h1>
 
       <div className='border p-8 rounded-md'>
-        <FormContainer
-          action={createProductAction}
-          successMessage='The product is successfully created!'
-        >
+        <FormContainer action={createProductAction}>
           <div className='grid md:grid-cols-2 gap-4 mb-4'>
             <FormInput
               type='text'

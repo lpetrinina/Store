@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { productSchema } from "./schemas";
 
 async function getAuthUser() {
     const user = await currentUser();
@@ -61,34 +62,32 @@ export async function fetchSingleProduct(productId: string) {
 
 // CREATE product
 
-export async function createProductAction(prevState: any, formData: FormData): Promise<{ error: null | string, success: boolean }> {
+export async function createProductAction(prevState: any, formData: FormData): Promise<{ error: null | string, success: null | string }> {
 
     const user = await getAuthUser();
 
     try {
-        const name = formData.get('name') as string;
-        const company = formData.get('company') as string;
-        const price = Number(formData.get('price') as string);
-        const image = formData.get('image') as File;
-        const description = formData.get('description') as string;
-        const featured = Boolean(formData.get('featured') as string);
+        const rawData = Object.fromEntries(formData);
+        const validatedFields = productSchema.safeParse(rawData);
+
+        if (!validatedFields.success) {
+            const errors = validatedFields.error.issues.map((err) => err.message);
+            throw new Error(errors.join(', '))
+        }
+
 
         await prisma.product.create({
             data: {
-                name,
-                company,
-                price,
+                ...validatedFields.data,
                 image: '/images/product-1.jpg',
-                description,
-                featured,
                 clerkId: user.id
             }
         })
 
-        return { error: null, success: true }
+        return { error: null, success: 'The product is successfully created!' }
     } catch (err) {
 
-        return { error: err instanceof Error ? err.message : 'An error occurred', success: false }
+        return { error: err instanceof Error ? err.message : 'An error occurred', success: null }
     }
 
 }
