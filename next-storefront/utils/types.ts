@@ -1,4 +1,5 @@
 export type actionFunction = (
     prevState: any,
     formData: FormData,
-) => Promise<{ error: null | string, success: boolean }>;
+) => Promise<{ error: null | string, success: null | string }>;
+
