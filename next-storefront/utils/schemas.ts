@@ -1,5 +1,19 @@
 import * as z from "zod";
 
+export function validateWithZodSchema<T>(schema: z.ZodType<T>, data: unknown): T {
+
+    const result = schema.safeParse(data);
+
+    if (!result.success) {
+        const errors = result.error.issues.map((err) => err.message);
+        throw new Error(errors.join(', '))
+    }
+
+    return result.data
+}
+
+
+
 export const productSchema = z.object({
     name: z
         .string()
