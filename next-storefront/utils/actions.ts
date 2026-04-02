@@ -3,7 +3,9 @@
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+
 import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
+import { uploadImage } from "./supabase";
 
 async function getAuthUser() {
     const user = await currentUser();
@@ -62,28 +64,32 @@ export async function fetchSingleProduct(productId: string) {
 
 // CREATE product
 
-export async function createProductAction(prevState: any, formData: FormData): Promise<{ error: null | string, success: null | string }> {
+export async function createProductAction(prevState: any, formData: FormData): Promise<{ error: null | string }> {
 
     const user = await getAuthUser();
+    let redirectPath: string | null = null
 
     try {
         const rawData = Object.fromEntries(formData);
         const file = formData.get('image') as File;
         const validatedFields = validateWithZodSchema(productSchema, rawData);
-        const validateImage = validateWithZodSchema(imageSchema, { image: file })
+        const validatedFile = validateWithZodSchema(imageSchema, { image: file })
+
+        // Upload image to Supabase bucket
+        const fullPath = await uploadImage(validatedFile.image);
 
         await prisma.product.create({
             data: {
                 ...validatedFields,
-                image: '/images/product-1.jpg',
+                image: fullPath,
                 clerkId: user.id
             }
         })
 
-        return { error: null, success: 'The product is successfully created!' }
     } catch (err) {
-
-        return { error: err instanceof Error ? err.message : 'An error occurred', success: null }
+        return { error: err instanceof Error ? err.message : 'An error occurred' }
     }
+
+    redirect('/admin/products')
 
 }

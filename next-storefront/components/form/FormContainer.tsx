@@ -6,7 +6,7 @@ import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { actionFunction } from "@/utils/types";
 
-const initialState = { error: null, success: null };
+const initialState = { error: null };
 
 function FormContainer({
   action,
@@ -20,10 +20,6 @@ function FormContainer({
   useEffect(() => {
     if (state.error) {
       toast.error(state.error);
-    }
-
-    if (state.success) {
-      toast.success(state.success);
     }
   }, [state]);
 
