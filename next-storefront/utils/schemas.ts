@@ -35,3 +35,23 @@ export const productSchema = z.object({
         { error: "Description must be between 10 and 1000 words." },
     ),
 });
+
+
+export const imageSchema = z.object({
+    image: validateImageFile()
+});
+
+
+function validateImageFile() {
+    const maxUploadSize = 1024 * 1024; // ~ 1MB
+    const acceptedFileTypes = ["image/"];
+
+    return z
+        .instanceof(File)
+        .refine((file) => {
+            return !file || file.size <= maxUploadSize;
+        }, { error: "File size must be less than 1MB!" })
+        .refine((file) => {
+            return !file || acceptedFileTypes.some((type) => file.type.startsWith(type))
+        }, { error: "File must be an image!" });
+}
