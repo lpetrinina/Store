@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { productSchema, validateWithZodSchema } from "./schemas";
+import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
 
 async function getAuthUser() {
     const user = await currentUser();
@@ -68,7 +68,9 @@ export async function createProductAction(prevState: any, formData: FormData): P
 
     try {
         const rawData = Object.fromEntries(formData);
+        const file = formData.get('image') as File;
         const validatedFields = validateWithZodSchema(productSchema, rawData);
+        const validateImage = validateWithZodSchema(imageSchema, { image: file })
 
         await prisma.product.create({
             data: {
