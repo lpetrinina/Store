@@ -101,3 +101,21 @@ export async function createProductAction(prevState: any, formData: FormData): P
     redirect('/admin/products')
 
 }
+
+// READ products
+
+export async function fetchAdminProducts() {
+
+    const user = await getAdminUser();
+    const products = await prisma.product.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        },
+        where: {
+            clerkId: user.id
+        }
+    })
+
+    return products;
+
+}
