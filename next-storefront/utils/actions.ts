@@ -17,6 +17,15 @@ async function getAuthUser() {
     return user;
 }
 
+async function getAdminUser() {
+    const user = await getAuthUser();
+
+    if (user.id !== process.env.ADMIN_USER_ID)
+        redirect('/')
+
+    return user;
+}
+
 
 //  GET product/s
 
@@ -62,12 +71,11 @@ export async function fetchSingleProduct(productId: string) {
 
 }
 
-// CREATE product
+// CREATE a product
 
 export async function createProductAction(prevState: any, formData: FormData): Promise<{ error: null | string }> {
 
-    const user = await getAuthUser();
-    let redirectPath: string | null = null
+    const user = await getAdminUser();
 
     try {
         const rawData = Object.fromEntries(formData);
